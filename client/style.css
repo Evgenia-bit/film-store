@@ -1,0 +1,112 @@
+* {
+    color: #fff;
+}
+.none {
+    display: none;
+}
+button {
+    background: #4FC6BF;
+    color: #000;
+    border-radius: 4px;
+    box-shadow: 5px 4px 4px rgba(0, 0, 0, 0.25);
+    border: none;
+    padding: 3px 25px;
+}
+header {
+    background: #3A4044;
+    padding: 15px 0;
+    border-bottom: 1px solid #4FC6BF;
+    box-shadow: 5px 4px 4px rgba(0, 0, 0, 0.25);
+}
+header h1 {
+    font-size: 24px;
+}
+header .current-employee {
+    padding: 0;
+    margin: 0;
+}
+header .exit:hover {
+    zoom: 1.1;
+}
+main .toolbar {
+    background: #3A4044;
+    box-shadow: 5px 4px 4px rgba(0, 0, 0, 0.25);
+}
+main .toolbar .main-list {
+    padding: 15px 0;
+}
+main .toolbar .main-list li {
+    list-style: none;
+    padding: 5px;
+}
+main .toolbar .main-list li.main-list__item {
+    border-top: 1px solid #4FC6BF;
+}
+main .toolbar .main-list li a {
+    color: #fff;
+    text-decoration: none;
+}
+main .toolbar .main-list li.create-order__item {
+    font-size: 22px;
+}
+
+main .toolbar .main-list .sublist li {
+    font-size: 12px;
+}
+
+
+form {
+    background: #3A4044;
+    padding: 30px 15px;
+    margin: 10px auto;
+    max-width: 600px;
+    box-shadow: 5px 4px 4px rgba(0, 0, 0, 0.25);
+    position: relative;
+}
+form h2 {
+    font-size: 18px;
+    text-align: center;
+    margin-bottom: 25px;
+}
+form .form-row{
+    
+    color: #000;
+    width: 60%;
+    margin: 20px auto;
+    
+    display: flex;
+    justify-content: space-between;
+}
+form .form-row label {
+    display: block;
+    font-size: 16px;
+    width: 40%;
+}
+form .form-row select, form .form-row input, form .form-row option {
+    color: #000;
+    background: #C4C4C4;
+    border: none;
+    width: 200px;
+    padding: 3px 15px;
+    box-shadow: 5px 4px 4px rgba(0, 0, 0, 0.25);
+} 
+form .form-row option {
+    border: none;
+}
+form .form-btn {
+    display: block;
+    margin: 25px auto 10px;
+}
+form textarea {
+    display: block;
+    color: #000;
+    width: 200px;
+}
+form .close-form {
+    display: block;
+    top: 0;
+    right: 5px;
+    position: absolute;
+    cursor: pointer;
+    font-size: 12px;
+}

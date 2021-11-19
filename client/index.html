@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Интернет-магазин фильмов</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="row justify-content-between align-items-center">
+
+
+                <div class="col-3">
+                    <h1>
+                        Film Store
+                    </h1>
+                </div>
+                <div class="col-6 text-end">
+                    <p class="current-employee">Старший менеджер Иванов</p>
+
+                </div>
+                <div class="col-3">
+                    <button class="exit">Выйти</button>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <div class="row justify-content-between align-items-start">
+                <div class="col-3 toolbar">
+                    <nav>
+                        <ul class="main-list">
+                            <li class="first create-order__item">
+                                <a href="#order"> Создать заказ</a>
+                            </li>
+                            <li  class="main-list__item">
+                                <a class="main-list__item-link" href="#">Заказы</a>
+                                <ul class="sublist none">
+                                    <li>
+                                        <a href="#">Удалить заказ</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Все заказы</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="main-list__item">
+                                <a class="main-list__item-link" href="#">Фильмы</a>
+                                <ul class="sublist none">
+                                    <li class="create-film__item">
+                                        <a href="#film">Добавить фильм</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Удалить фильм</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Все фильмы</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="main-list__item">
+                                <a class="main-list__item-link" href="#">Жанры</a>
+                                <ul class="sublist none">
+                                    <li class="create-genre__item">
+                                        <a href="#genre">Добавить жанр</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Удалить жанр</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Все жанры</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="main-list__item">
+                                <a class="main-list__item-link" href="#">Покупатели</a>
+                                <ul class="sublist none">
+                                    <li>
+                                        <a href="#">Добавить покупателя</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Удалить покупателя</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Все покупатели</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="main-list__item">
+                                <a class="main-list__item-link" href="#">Отчёты</a>
+                                <ul class="sublist none">
+                                    <li>
+                                        <a href="#">Отчет о выручке с продажи фильмов </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Отчёт о деятельности сотрудника </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-9 main">
+                    <form action="" class="create-order none" id="order">
+                        <span class="close-form"> Закрыть &#9746;</span>
+                        <h2>Создание заказа</h2>
+                        <div class="form-row">
+                            <label for="buyer"> Покупатель</label>
+                            <select name="buyer" id="buyer" class="choose-buyer">
+                                <option value="----------">----------</option>
+                                <option value="Иванов">Иванов</option>
+                            </select>
+                
+                        </div>
+                        <div class="form-row">
+                            <label for="film">Фильм</label>
+                            <select name="film" id="film" class="choose-film">
+                                <option value="----------">----------</option>
+                                <option value="Голубая Лагуна">Голубая Лагуна</option>
+                            </select>
+                        </div>
+                        <div class="form-row">
+                            <label for="date">Дата</label>
+                            <input name="date" type="date" class="choose-date">
+                        </div>
+                        
+                        <button class="create-order-btn form-btn">Создать</button>
+                    </form>
+                    <form action="" class="create-film none" id="film">
+                        <span class="close-form"> Закрыть &#9746;</span>
+                        <h2>Создание фильма</h2>
+                        <div class="form-row">
+                            <label for="genre"> Жанр</label>
+                            <select name="genre" id="genre" class="choose-genre">
+                                <option value="----------">----------</option>
+                                <option value="Комедия">Комедия</option>
+                            </select>
+                
+                        </div>
+                        <div class="form-row">
+                            <label for="name">Название</label>
+                            <input name="name" type="text" class="choose-name">
+                        </div>
+                        <div class="form-row">
+                            <label for="price">Цена</label>
+                            <input name="price" type="text" value="100" class="choose-price">
+                        </div>
+                        <div class="form-row">
+                            <label for="duration">Длительность</label>
+                            <input name="duration" type="text" class="choose-duration">
+                        </div>
+                        <div class="form-row">
+                            <label for="duration">Страна</label>
+                            <input name="duration" type="text" class="choose-duration">
+                        </div>
+                        <div class="form-row">
+                            <label for="year">Год</label>
+                            <input name="year" type="text" class="choose-year">
+                        </div>
+                        
+                        <div class="form-row">
+                            <label for="description">Описание</label>
+                            <textarea name="description" id="film-description" cols="30" rows="5"></textarea>
+                        </div>
+                        <div class="form-row">
+                            <label for="cast">Актёрский состав (через запятую)</label>
+                            <textarea name="cast" id="film-cast" cols="30" rows="5"></textarea>
+                        </div>
+                        <button class="create-film-btn form-btn">Создать</button>
+                    </form>
+                    <form action="" class="create-genre none" id="genre">
+                        <span class="close-form"> Закрыть &#9746;</span>
+                        <h2>Создание жанра</h2>
+                        <div class="form-row">
+                            <label for="genre"> Название</label>
+                            <input name="genre" type="text" id="genre">
+                        </div>
+                        <button class="create-genre-btn form-btn">Создать</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="main.js"></script>
+</body>
+
+</html>
