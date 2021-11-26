@@ -110,3 +110,29 @@ form .close-form {
     cursor: pointer;
     font-size: 12px;
 }
+
+.list-wrapper h2 {
+    color: #000;
+}
+.list-wrapper li span {
+    color: #000;
+}
+.list-wrapper li .deleting {
+    color: #000;
+}
+.delete {
+    color: red;
+    cursor: pointer;
+}
+.choose-employee-form {
+    height: 30px;
+    display: flex;
+    gap: 20px;
+    justify-content: flex-end;
+    align-items: center;
+}
+.choose-employee-form select {
+    color: #fff;
+    background: #3A4044;
+    width: 300px;
+}
