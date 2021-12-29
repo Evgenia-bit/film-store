@@ -14,7 +14,7 @@ CREATE TABLE if not exists Покупатель (
     ВремяВыдачиПаспорта DATE NULL,
     КемВыданПаспорт VARCHAR(50) NULL,
     МестоЖительства VARCHAR(50) NULL,
-    НомерТелефона INTEGER NULL,
+    НомерТелефона NUMERIC NULL,
     CHECK (
         КодПокупателя > 0
         AND СерияПаспорта >= 0

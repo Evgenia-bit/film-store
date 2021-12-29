@@ -5,8 +5,7 @@
     <title>Интернет-магазин фильмов</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="style.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
 </head>
 
@@ -23,13 +22,13 @@
                 </div>
                 <form class="col-9 choose-employee-form">
                     <div class="choose-block text-end">
-                        <p class="current-employee">Старший менеджер Иванов</p>
+                        <p class="current-employee"></p>
                         <select name="employee" id="employee" class="choose-employee none">
                         </select>
                     </div>
                     <div class="btn-block">
                         <button class="change-employee">Сменить сотрудника</button>
-                       <button class="change-employee-submit none" type="submit">Выбрать</button>
+                        <button class="change-employee-submit none" type="submit">Выбрать</button>
                     </div>
                 </form>
             </div>
@@ -44,9 +43,12 @@
                             <li class="first create-order__li">
                                 <a href="#order"> Создать заказ</a>
                             </li>
-                            <li  class="main-list__item">
+                            <li class="main-list__item">
                                 <a class="main-list__item-link" href="#">Заказы</a>
                                 <ul class="sublist none">
+                                    <li class="edit-order__li">
+                                        <a href="javascript:void(0)">Изменить заказ</a>
+                                    </li>
                                     <li class="delete-order__li">
                                         <a href="javascript:void(0)">Удалить заказ</a>
                                     </li>
@@ -58,6 +60,9 @@
                             <li class="main-list__item">
                                 <a class="main-list__item-link" href="#">Фильмы</a>
                                 <ul class="sublist none">
+                                    <li class="edit-film__li">
+                                        <a href="javascript:void(0)">Изменить фильм</a>
+                                    </li>
                                     <li class="create-film__li">
                                         <a href="#film">Добавить фильм</a>
                                     </li>
@@ -72,10 +77,13 @@
                             <li class="main-list__item">
                                 <a class="main-list__item-link" href="#">Жанры</a>
                                 <ul class="sublist none">
-                                    <li class="create-genre__li">
-                                        <a href="#genre">Добавить жанр</a>
+                                    <li class="edit-genre__li">
+                                        <a href="javascript:void(0)">Изменить жанр</a>
                                     </li>
-                                    <li class="delete-genre__li"> 
+                                    <li class="create-genre__li">
+                                        <a href="javascript:void(0)">Добавить жанр</a>
+                                    </li>
+                                    <li class="delete-genre__li">
                                         <a href="javascript:void(0)">Удалить жанр</a>
                                     </li>
                                     <li class="get-all-genre__li">
@@ -86,6 +94,9 @@
                             <li class="main-list__item">
                                 <a class="main-list__item-link" href="#">Покупатели</a>
                                 <ul class="sublist none">
+                                    <li class="edit-buyer__li">
+                                        <a href="javascript:void(0)">Изменить покупателя</a>
+                                    </li>
                                     <li class="create-buyer__li">
                                         <a href="javascript:void(0)">Добавить покупателя</a>
                                     </li>
@@ -100,10 +111,10 @@
                             <li class="main-list__item">
                                 <a class="main-list__item-link" href="#">Отчёты</a>
                                 <ul class="sublist none">
-                                    <li>
+                                    <li class="create-report-about-revenue_li">
                                         <a href="javascript:void(0)">Отчет о выручке с продажи фильмов </a>
                                     </li>
-                                    <li>
+                                    <li class="create-report-about-employee_li">
                                         <a href="javascript:void(0)">Отчёт о деятельности сотрудника </a>
                                     </li>
                                 </ul>
@@ -113,128 +124,264 @@
                 </div>
                 <div class="col-9 main" id="main">
                     <span class="result"></span>
-                    <div class="list-wrapper none">
-                        <span class="close-form" style="color: #000"> Закрыть &#9746;</span>
-                        <h2 class="list-title"></h2>    
-                        <ul class="list">
-                        </ul>
+
+                    <div class="wrapper none list-wrapper">
+                        <div>
+                            <h2 class="list-title"></h2>
+                            <table class="list">
+
+
+                                <span class="close-form"> Закрыть &#9746;</span>
+
+
+                            </table>
+                        </div>
+
                     </div>
-                    <form action="" class="create-order none" id="order-form">
-                        <span class="close-form"> Закрыть &#9746;</span>
-                        <h2>Создание заказа</h2>
-                        <div class="form-row">
-                            <label for="buyer"> Покупатель</label>
-                            <select name="buyer" id="buyer" class="choose-buyer">
-                                <option value="----------">----------</option>
-                            </select>
-                
+                    <div class="wrapper none create-order">
+                        <form action="" id="order-form">
+                            <span class="close-form"> Закрыть &#9746;</span>
+                            <h2>Создание заказа</h2>
+                            <div class="form-row">
+                                <label for="buyer"> Покупатель</label>
+                                <select name="buyer" id="buyer" class="choose-buyer">
+                                    <option value="----------">----------</option>
+                                </select>
+
+                            </div>
+                            <div class="form-row">
+                                <label for="film">Фильм</label>
+                                <select name="film" id="film" class="choose-film">
+                                    <option value="----------">----------</option>
+                                </select>
+                            </div>
+                            <div class="form-row">
+                                <label for="date">Дата</label>
+                                <input name="date" type="date" class="choose-date" required>
+                            </div>
+
+                            <button class="create-order-btn form-btn">Создать</button>
+                        </form>
+                    </div>
+                    <div class="wrapper none edit-order">
+                        <form action="" id="edit-form">
+                            <span class="close-form"> Закрыть &#9746;</span>
+                            <h2>Изменение заказа</h2>
+                            <div class="form-row">
+                                <label for="buyer"> Покупатель</label>
+                                <select name="buyer" id="buyer-edit" class="choose-buyer">
+                                    <option value="----------">----------</option>
+                                </select>
+
+                            </div>
+                            <div class="form-row">
+                                <label for="film">Фильм</label>
+                                <select name="film" id="film-edit"  class="choose-film">
+                                    <option value="----------">----------</option>
+                                </select>
+                            </div>
+                            <div class="form-row">
+                                <label for="date">Дата</label>
+                                <input name="date" type="date" class="choose-date" required>
+                            </div>
+
+                            <button class="create-order-btn form-btn">Изменить</button>
+                        </form>
+                    </div>
+                    <div class="wrapper none create-film">
+                        <form action="" id="film-form">
+                            <span class="close-form"> Закрыть &#9746;</span>
+                            <h2>Создание фильма</h2>
+                            <div class="form-row">
+                                <label for="genre"> Жанр</label>
+                                <select name="genre" id="genre" class="choose-genre" required>
+                                    <option value="----------">----------</option>
+                                </select>
+
+                            </div>
+                            <div class="form-row">
+                                <label for="name">Название</label>
+                                <input name="name" type="text" class="choose-name" required>
+                            </div>
+                            <div class="form-row">
+                                <label for="price">Цена</label>
+                                <input name="price" type="number" value="100" class="choose-price" min="0" max="10000" required>
+                            </div>
+                            <div class="form-row">
+                                <label for="duration">Длительность</label>
+                                <input name="duration" class="choose-duration" type="number">
+                            </div>
+                            <div class="form-row">
+                                <label for="country">Страна</label>
+                                <input name="country" type="text" class="choose-country">
+                            </div>
+                            <div class="form-row">
+                                <label for="year">Год</label>
+                                <input name="year" class="choose-year" type="number">
+                            </div>
+
+                            <div class="form-row">
+                                <label for="description">Описание</label>
+                                <textarea name="description" id="film-description" cols="30" rows="5"></textarea>
+                            </div>
+                            <div class="form-row">
+                                <label for="cast">Актёрский состав (через запятую)</label>
+                                <textarea name="cast" id="film-cast" cols="30" rows="5"></textarea>
+                            </div>
+                            <button class="create-film-btn form-btn" type="submit">Создать</button>
+                        </form>
+                    </div>
+                    <div class="wrapper none create-genre">
+                        <form action="" id="genre-form">
+                            <span class="close-form"> Закрыть &#9746;</span>
+                            <h2>Создание жанра</h2>
+                            <div class="form-row">
+                                <label for="genre"> Название</label>
+                                <input name="genre" type="text" id="genre" required>
+                            </div>
+                            <button class="create-genre-btn form-btn" type="submit">Создать</button>
+
+                        </form>
+                    </div>
+                    <div class="wrapper none create-buyer">
+                        <form action="" id="buyer-form">
+                            <span class="close-form"> Закрыть &#9746;</span>
+                            <h2>Создание покупателя</h2>
+                            <div class="form-row">
+                                <label for="surname">Фамилия</label>
+                                <input name="surname" type="text" class="choose-surname" required>
+                            </div>
+                            <div class="form-row">
+                                <label for="name">Имя</label>
+                                <input name="name" type="text" class="choose-name" required>
+                            </div>
+                            <div class="form-row">
+                                <label for="patronymic">Отчество</label>
+                                <input name="patronymic" type="text" class="choose-patronymic">
+                            </div>
+                            <div class="form-row">
+                                <label for="series">Серия паспорта</label>
+                                <input name="series" type="number" min="0" max="9999" class="choose-series" required>
+                            </div>
+                            <div class="form-row">
+                                <label for="number">Номер паспорта</label>
+                                <input name="number" type="number" class="choose-number" min="0" max="999999" required>
+                            </div>
+
+                            <div class="form-row">
+                                <label for="whoIssued">Кем выдан паспорт</label>
+                                <input name="whoIssued" type="text" class="choose-whoIssued" required>
+                            </div>
+                            <div class="form-row">
+                                <label for="whenIssued">Когда выдан паспорт</label>
+                                <input name="whenIssued" type="date" class="choose-whenIssued" required>
+                            </div>
+                            <div class="form-row">
+                                <label for="place">Место жительства</label>
+                                <input name="place" type="text" class="choose-place" required>
+                            </div>
+                            <div class="form-row">
+                                <label for="phone">Номер телефона</label>
+                                <input name="phone" type="number" min="0" max="999999999999999" class="choose-phone">
+                            </div>
+                            <button class="create-buyer-btn form-btn" type="submit">Создать</button>
+                        </form>
+                    </div>
+                    <div class="report report-revenue none wrapper">
+                        <div class="content">
+                            <span class="close-form" style="color: #000"> Закрыть &#9746;</span>
+                            <form action="" class="create-report-revenue" id="revenue-form">
+
+                                <h2>Создание отчета о выручке с продажи фильмов конкретных жанров за выбранный период</h2>
+                                <div class="form-row">
+                                    <label for="datestart">Период с </label>
+                                    <input name="datestart" type="date" class="choose-datestart" required>
+                                </div>
+                                <div class="form-row">
+                                    <label for="dateend">по</label>
+                                    <input name="dateend" type="date" class="choose-dateend" required>
+                                </div>
+                                <button class="create-report-revenue-btn form-btn" type="submit">Создать</button>
+                            </form>
+                            <table class="report-table">
+                                <tbody class="report-tbody">
+                                    <tr>
+                                        <th colspan="4">
+                                            Отчёт о выручке с продажи фильмов конкретных жанров за выбранный период
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="4">
+                                            Период с <span class="start"></span> по <span class="end"></span>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            Жанр
+                                        </th>
+                                        <th>
+                                            Количество
+                                        </th>
+                                        <th>
+                                            Выручка
+                                        </th>
+                                        <th>
+                                            Средняя выручка за фильм
+                                        </th>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
-                        <div class="form-row">
-                            <label for="film">Фильм</label>
-                            <select name="film" id="film" class="choose-film">
-                                <option value="----------">----------</option>
-                            </select>
+                    </div>
+
+                    <div class="report report-employee none wrapper">
+                        <div class="content">
+                            <span class="close-form" style="color: #000"> Закрыть &#9746;</span>
+                            <form action="" class="create-report-employee" id="employee-form">
+
+                                <h2>Отчёт о деятельности сотрудника за выбранный период</h2>
+                                <div class="form-row">
+                                    <label for="datestart">Период с </label>
+                                    <input name="datestart" type="date" class="choose-datestart" required>
+                                </div>
+                                <div class="form-row">
+                                    <label for="dateend">по</label>
+                                    <input name="dateend" type="date" class="choose-dateend" required>
+                                </div>
+                                <div class="form-row">
+                                    <label for="employeeForReport">Выберите сотрудника</label>
+                                    <select name="employeeForReport" id="employee-for-report" class="choose-employee" required>
+                                    </select>
+                                </div>
+                                <button class="create-report-employee-btn form-btn" type="submit">Создать</button>
+                            </form>
+                            <table class="report-table">
+                                <tbody class="report-tbody">
+                                    <tr>
+                                        <th colspan="3">
+                                            Отчёт о деятельности сотрудника <span id="employee-name"></span>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="3">
+                                            Период с <span class="start"></span> по <span class="end"></span>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            Дата
+                                        </th>
+                                        <th>
+                                            Фильм
+                                        </th>
+                                        <th>
+                                            Цена
+                                        </th>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
-                        <div class="form-row">
-                            <label for="date">Дата</label>
-                            <input name="date" type="date" class="choose-date">
-                        </div>
-                        
-                        <button class="create-order-btn form-btn">Создать</button>
-                    </form>
-                    <form action="" class="create-film none" id="film-form">
-                        <span class="close-form"> Закрыть &#9746;</span>
-                        <h2>Создание фильма</h2>
-                        <div class="form-row">
-                            <label for="genre"> Жанр</label>
-                            <select name="genre" id="genre" class="choose-genre" required>
-                                <option value="----------">----------</option>
-                            </select>
-                
-                        </div>
-                        <div class="form-row">
-                            <label for="name">Название</label>
-                            <input name="name" type="text" class="choose-name" required>
-                        </div>
-                        <div class="form-row">
-                            <label for="price">Цена</label>
-                            <input name="price" type="number" value="100" class="choose-price"  min = "0" max = "10000" required>
-                        </div>
-                        <div class="form-row">
-                            <label for="duration">Длительность</label>
-                            <input name="duration"  class="choose-duration" type = "number">
-                        </div>
-                        <div class="form-row">
-                            <label for="country">Страна</label>
-                            <input name="country" type="text" class="choose-country">
-                        </div>
-                        <div class="form-row">
-                            <label for="year">Год</label>
-                            <input name="year"  class="choose-year"  type = "number" >
-                        </div>
-                        
-                        <div class="form-row">
-                            <label for="description">Описание</label>
-                            <textarea name="description" id="film-description" cols="30" rows="5"></textarea>
-                        </div>
-                        <div class="form-row">
-                            <label for="cast">Актёрский состав (через запятую)</label>
-                            <textarea name="cast" id="film-cast" cols="30" rows="5"></textarea>
-                        </div>
-                        <button class="create-film-btn form-btn" type="submit">Создать</button>
-                    </form>
-                    <form action="" class="create-genre none" id="genre-form">
-                        <span class="close-form"> Закрыть &#9746;</span>
-                        <h2>Создание жанра</h2>
-                        <div class="form-row">
-                            <label for="genre"> Название</label>
-                            <input name="genre" type="text" id="genre" required>
-                        </div>
-                        <button class="create-genre-btn form-btn" type="submit">Создать</button>
-                        
-                    </form>
-                    <form action="" class="create-buyer none" id="buyer-form">
-                        <span class="close-form"> Закрыть &#9746;</span>
-                        <h2>Создание покупателя</h2>
-                        <div class="form-row">
-                            <label for="surname">Фамилия</label>
-                            <input name="surname" type="text" class="choose-surname" required>
-                        </div>
-                        <div class="form-row">
-                            <label for="name">Имя</label>
-                            <input name="name" type="text" class="choose-name" required>
-                        </div>
-                        <div class="form-row">
-                            <label for="patronymic">Отчество</label>
-                            <input name="patronymic" type="text" class="choose-patronymic" >
-                        </div>
-                        <div class="form-row">
-                            <label for="series">Серия паспорта</label>
-                            <input name="series" type="number" min="0" max="9999" class="choose-series" required>
-                        </div>
-                        <div class="form-row">
-                            <label for="number">Номер паспорта</label>
-                            <input name="number" type="number" class="choose-number" min="0" max="999999" required>
-                        </div>
-                        
-                        <div class="form-row">
-                            <label for="whoIssued">Кем выдан паспорт</label>
-                            <input name="whoIssued" type="text" class="choose-whoIssued" required>
-                        </div>
-                        <div class="form-row">
-                            <label for="whenIssued">Когда выдан паспорт</label>
-                            <input name="whenIssued" type="date" class="choose-whenIssued" required>
-                        </div>
-                        <div class="form-row">
-                            <label for="place">Место жительства</label>
-                            <input name="place" type="text" class="choose-place" required>
-                        </div>
-                        <div class="form-row">
-                            <label for="phone">Номер телефона</label>
-                            <input name="phone" type="number" min="0" max="999999999999999" class="choose-phone">
-                        </div>
-                        <button class="create-buyer-btn form-btn" type="submit">Создать</button>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>

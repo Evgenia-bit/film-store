@@ -28,15 +28,17 @@ router.delete('/delete', (req, res) => {
 router.get('/all', (req, res) => {
     (async () => {
         try {
-            const genres = await db.query(`SELECT * FROM Жанр`) 
+            const genres = await db.query(`SELECT КодЖанра AS "Код жанра", Наименование FROM Жанр`)
             let elements = {}
             let codes = {}
+            let fullnames = {}
             genres.rows.forEach((elem, i) => {
-                codes[i] = elem['КодЖанра']
-                
-                elements[i] = elem['Наименование']
+                codes[i] = elem['Код жанра']
+
+                elements[i] = elem;
+                fullnames[i] = elem["Наименование"]
             });
-            return res.json( {msg : 'Жанры успешно получены!', status: 'OK', title: 'Все жанры', elements, codes})
+            return res.json( {msg : 'Жанры успешно получены!', status: 'OK', title: 'Все жанры', elements, codes, fullnames})
         } catch (e) {
             return res.json( {msg : 'Произошла ошибка!', status: 'error'})
         }

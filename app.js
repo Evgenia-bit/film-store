@@ -17,6 +17,12 @@ const startSql = fs.readFileSync('database.sql').toString()
 const start = async () => {
     try {
         await db.query(startSql)
+       /* await db.query(`INSERT INTO Сотрудник ( Должность, Фамилия, Имя, Отчество, Доверенность )
+VALUES ('Младший менеджер', 'Родионова', 'Наталья', 'Петровна', 'Родионовой Н.П.')`)
+        await db.query(`INSERT INTO Сотрудник ( Должность, Фамилия, Имя, Отчество, Доверенность )
+VALUES ('Старший менеджер', 'Ульянов', 'Артём', 'Владимирович', 'Ульянову А.В.')`)
+        await db.query(`INSERT INTO Сотрудник ( Должность, Фамилия, Имя, Отчество, Доверенность )
+VALUES ('Старший менеджер', 'Иванов', 'Петр', 'Михайлович', 'Иванову П.М.')`)*/
         app.listen(PORT, ()=>console.log(`Server started on port ${PORT}`))
     } 
     catch (e)

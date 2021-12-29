@@ -102,27 +102,72 @@ form textarea {
     color: #000;
     width: 200px;
 }
-form .close-form {
+.close-form {
     display: block;
-    top: 0;
+    top: 15px;
     right: 5px;
     position: absolute;
     cursor: pointer;
     font-size: 12px;
 }
+.list-wrapper {
+    position: relative;
+    width: 900px;
+    margin: 0 auto;
+}
+.list-wrapper .close-form {
+    color: #000000;
+}
+.list-wrapper hr{
+    margin: 0;
+}
+.list-wrapper .list .list-item {
+    position: relative;
+    margin-bottom: 10px;
+}
+.list-wrapper  td.item input {
+    color: #000;
+    width: 70px;
+    margin: 0;
+}
 
-.list-wrapper h2 {
-    color: #000;
+.list-wrapper table {
+    border: 1px solid #aaa4a4;
+    margin: 10px auto;
+
+    width: 100%;
+    box-shadow: 5px 4px 4px rgba(0, 0, 0, 0.25);
 }
-.list-wrapper li span {
+.list-wrapper  h2 {
     color: #000;
+    padding: 7px 40px;
 }
-.list-wrapper li .deleting {
+
+
+
+.list-wrapper table th {
     color: #000;
+    text-align: center;
+    border: 1px solid #000;
+    padding: 5px 10px;
+}
+.list-wrapper table td{
+    text-align: center;
+    padding: 10px 10px;
+    color: #000;
+    border: 1px solid #000;
+}
+
+.list-row {
+    position: relative;
 }
 .delete {
-    color: red;
+    color: red !important;
     cursor: pointer;
+    display: block;
+    position: absolute;
+    right: 3px;
+    top: 0;
 }
 .choose-employee-form {
     height: 30px;
@@ -135,4 +180,22 @@ form .close-form {
     color: #fff;
     background: #3A4044;
     width: 300px;
+}
+.report td, .report th{
+    color:  #000;
+    border: solid 1px #000;  
+}
+.report th {
+    text-align: center;
+}
+.report span{
+    color:  #000;
+}
+.report table {
+    margin: 0 auto;
+    width: 600px;
+    border: solid 1px #000;
+}
+.report {
+    position: relative;
 }

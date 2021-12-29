@@ -18,7 +18,6 @@ router.post('/create', (req, res) => {
 router.delete('/delete', (req, res) => {
     (async () => {
         try {
-            console.log(req.body)
             await db.query(`DELETE FROM Покупатель WHERE Фамилия = '${req.body[0]}' AND Имя = '${req.body[1]}' AND  Отчество = '${req.body[2]}' AND  СерияПаспорта = '${req.body[3]}' AND НомерПаспорта = '${req.body[4]}'`) 
             return res.json( {msg : 'Покупатель успешно удалён!', status: 'OK'})
         } catch (e) {
@@ -29,15 +28,17 @@ router.delete('/delete', (req, res) => {
 router.get('/all', (req, res) => {
     (async () => {
         try {
-            const films = await db.query(`SELECT КодПокупателя, Фамилия, Имя, Отчество, СерияПаспорта, НомерПаспорта, ВремяВыдачиПаспорта, КемВыданПаспорт, МестоЖительства, НомерТелефона FROM Покупатель`) 
+            const films = await db.query(`SELECT КодПокупателя AS "Код покупателя", Фамилия, Имя, Отчество, СерияПаспорта AS "Серия паспорта", НомерПаспорта AS "Номер паспорта", ВремяВыдачиПаспорта AS "Время выдачи паспорта", КемВыданПаспорт AS "Кем выдан паспорт", МестоЖительства AS "Место жительства", НомерТелефона AS "Номер телефона" FROM Покупатель`)
             let elements = {}
             let codes = {}
+            let fullnames = {}
             films.rows.forEach((elem, i) => {
-                codes[i] = elem['КодПокупателя']
-                delete elem[Object.keys(elem)[0]];
-                elements[i] = elem
+                codes[i] = elem['Код покупателя']
+                elem['Время выдачи паспорта'] = elem['Время выдачи паспорта'].toLocaleDateString()
+                elements[i] = elem;
+                fullnames[i] = elem['Фамилия'] +  ' ' + elem['Имя'][0] + '. ' + elem['Отчество'][0] + '. ';
             });
-            return res.json( {msg : 'Покупатели успешно получены!', status: 'OK', title: 'Все покупатели', elements, codes})
+            return res.json( {msg : 'Покупатели успешно получены!', status: 'OK', title: 'Все покупатели', elements, codes,  fullnames })
         } catch (e) {
             console.log(e)
             return res.json({ msg: 'Произошла ошибка!', status: 'error' })
