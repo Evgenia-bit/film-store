@@ -1,12 +1,14 @@
 const mainBlock = document.querySelector('#main')
 const mainList = document.querySelectorAll('.main-list__item')
 const resultBlock = document.querySelector('.result')
+const manual = document.querySelector('.manual')
 const closeBtns = document.querySelectorAll('.close-form')
 
 const createOrder = document.querySelector('#order-form')
-const editOrder = document.querySelector('#edit-form')
+const editOrder = document.querySelector('#edit-order')
 const selectFilmEdit = document.querySelector('#film-edit')
 const selectBuyerEdit = document.querySelector('#buyer-edit')
+const selectGenreEdit = document.querySelector('#genre-edit')
 const selectBuyer = document.querySelector('#buyer')
 const selectFilm = document.querySelector('#film')
 const createOrderBtn = document.querySelector('.create-order__li')
@@ -15,7 +17,9 @@ const getAllOrder = document.querySelector('.get-all-order__li')
 const deleteOrder = document.querySelector('.delete-order__li')
 
 const createFilm = document.querySelector('#film-form')
+const editFilm = document.querySelector('#edit-film')
 const createFilmBtn = document.querySelector('.create-film__li')
+const editFilmBtn = document.querySelector('.edit-film__li')
 const getAllFilm = document.querySelector('.get-all-film__li')
 const deleteFilm = document.querySelector('.delete-film__li')
 
@@ -62,6 +66,7 @@ function showBlock(elem) {
         item.classList.add('none')
     })
     resultBlock.innerHTML = ''
+    manual.textContent = ''
     document.querySelector(elem).classList.remove('none');
 }
 
@@ -71,6 +76,7 @@ function closeBlock() {
             item.parentNode.parentNode.classList.add('none')
             if (item.parentNode.querySelector('ul')) item.parentNode.querySelector('ul').innerHTML = ''
             resultBlock.innerHTML = '';
+            manual.textContent = ''
         })
     })
 }
@@ -92,10 +98,10 @@ function request(url, method, data = null) {
     }
 }
 
-function getElementsForSelect(select, url) {
+function getElementsForSelect(select, url, selected = null) {
     select.innerHTML = ' <option value="Загрузка....">Загрузка....</option>'
     request(url, 'GET').then(result => {
-        console.log(result)
+
         select.innerHTML = ''
         let value;
         let code;
@@ -107,8 +113,9 @@ function getElementsForSelect(select, url) {
             }
 
             code = result.codes[key]
+
             select.insertAdjacentHTML("beforeEnd", `
-                <option id="${code}" value="${value}">${value}</option>
+                <option id="${code}" ${selected === code ? 'selected' : ''} value="${value}">${value}</option>
             `)
         }
     })
@@ -130,25 +137,14 @@ function printItems(result) {
         }
     }
 }
-function getEditings(){
-    const editings = document.querySelectorAll('.editing')
-    editings.forEach(item => {
-        item.addEventListener('click', (e)=> {
-
-          /*  const data = {
-                'id': item.parentNode.parentNode.getAttribute('data-id'),
-                name: item.name,
-                value: item.value,
-            }*/
-            showBlock('.edit-order')
-            getElementsForSelect(selectBuyerEdit, '/buyer/all')
-            getElementsForSelect(selectFilmEdit, '/film/all')
-            return request('/order/getOne', 'POST', {id: item.getAttribute('data-id')}).then(result => {
-                resultBlock.style.color = result.status == 'OK' ? '#73F55B' : 'red';
+function getEditings(block, form, url, item){
+   return request(url, 'POST', {id: item.getAttribute('data-id')}).then(result => {
+       resultBlock.style.color = result.status == 'OK' ? '#73F55B' : 'red';
                 resultBlock.innerHTML = result.msg;
-            })
-        })
-    })
+                showBlock(block)
+                form.setAttribute('data-itemId', item.getAttribute('data-id'));
+                return result;
+   })
 }
 function printItemsForEdit(result) {
     document.querySelector('.list-title').textContent = result.title;
@@ -166,7 +162,10 @@ function printItemsForEdit(result) {
         }
 
     }
-    getEditings()
+
+
+
+
 
 }
 
@@ -183,6 +182,7 @@ function getItemsFromDB(url) {
 function getItemsFromDBForEdit(url) {
     resultBlock.style.color = 'black'
     resultBlock.innerHTML = 'Получение.....'
+    manual.textContent = 'Нажмите на строку, которую хотите изменить';
     return request(url, 'GET').then(result => {
         createFilm.reset()
         resultBlock.style.color = result.status == 'OK' ? '#73F55B' : 'red';
@@ -200,16 +200,25 @@ function createItemInDB(url, data) {
     })
 }
 
+function editItemInDB(url, data) {
+    resultBlock.style.color = 'black'
+    resultBlock.innerHTML = 'Отправка.....'
+    return request(url, 'PUT', data).then(result => {
+        resultBlock.style.color = result.status == 'OK' ? '#73F55B' : 'red';
+        resultBlock.innerHTML = result.msg;
+        return result;
+    })
+}
+
 function deteleItemInDB(urlForGetElem, urlForDeleteElem) {
+    manual.textContent = "Нажмите на элемент, чтобы удалить его"
     getItemsFromDB(urlForGetElem).then(() => {
         document.querySelectorAll('tr.list-row').forEach(item => {
-            item.insertAdjacentHTML("beforeEnd", `
-                <span class="delete">
-                    &#9746;
-                </span>
-            `)
+            item.classList.add('delete')
             item.addEventListener('click', (e) => {
-                if (e.target.classList.contains('delete')) {
+                console.log(e.target)
+                if (item.classList.contains('delete')) {
+
                     item.remove()
                     const data = {}
                     const items = item.querySelectorAll('.item');
@@ -250,6 +259,44 @@ createFilm.addEventListener('submit', (e) => {
     }
     createItemInDB('/film/create', data)
     createFilm.reset()
+})
+editFilmBtn.addEventListener('click', () => {
+    showBlock('.list-wrapper')
+    getItemsFromDBForEdit('/film/all').then(()=> {
+        const editings = document.querySelectorAll('.editing')
+        editings.forEach(item => {
+            item.addEventListener('click', (e)=> {
+                getEditings('.edit-film', editFilm, '/film/getOne', item).then(result=> {
+                    console.log(result)
+                    getElementsForSelect(selectGenreEdit, '/genre/all', result.film[0]["КодЖанра"])
+                    editFilm.name.value = result.film[0]["Наименование"]
+                    editFilm.price.value = result.film[0]["Цена"]
+                    editFilm.duration.value = result.film[0]["Длительность"]
+                    editFilm.country.value = result.film[0]["Страна"]
+                    editFilm.year.value = result.film[0]["Год"]
+                    editFilm.description.value = result.film[0]["Описание"]
+                    editFilm.cast.value = result.film[0]["АктёрскийСостав"]
+                })
+
+            })
+        })
+    })
+})
+editFilm.addEventListener('submit', (e)=> {
+    e.preventDefault()
+    const data = {
+        id: editFilm.getAttribute('data-itemId'),
+        genre: editFilm.genre[editFilm.genre.selectedIndex].id,
+        name: editFilm.name.value,
+        price: editFilm.price.value,
+        duration: editFilm.duration.value,
+        country: editFilm.country.value,
+        year: editFilm.year.value,
+        description: editFilm.description.value,
+        cast: editFilm.cast.value,
+    }
+    editItemInDB('/film/edit', data)
+
 })
 getAllFilm.addEventListener('click', () => {
     showBlock('.list-wrapper')
@@ -313,7 +360,19 @@ createOrderBtn.addEventListener('click', () => {
 })
 editOrderBtn.addEventListener('click', () => {
     showBlock('.list-wrapper')
-    getItemsFromDBForEdit('/order/all')
+    getItemsFromDBForEdit('/order/all').then((result)=> {
+        const editings = document.querySelectorAll('.editing')
+        editings.forEach(item => {
+            item.addEventListener('click', (e)=> {
+                getEditings('.edit-order', editOrder, '/order/getOne', item).then(result=> {
+                    getElementsForSelect(selectBuyerEdit, '/buyer/all', result.orders[0]["КодПокупателя"])
+                    getElementsForSelect(selectFilmEdit, '/film/all', result.orders[0]["КодФильма"])
+                    editOrder.date.value = result.orders[0]["Дата"].substring(0, 10)
+                })
+
+            })
+        })
+    })
 
 })
 
@@ -329,8 +388,20 @@ createOrder.addEventListener('submit', (e) => {
     createItemInDB('/order/create', data)
     createOrder.reset()
 })
+editOrder.addEventListener('submit', (e)=> {
+    e.preventDefault()
+    const data = {
+        id: editOrder.getAttribute('data-itemId'),
+        buyer: editOrder.buyer[editOrder.buyer.selectedIndex].id,
+        film: editOrder.film[editOrder.film.selectedIndex].id,
+        date: editOrder.date.value
+    }
+    editItemInDB('/order/edit', data)
+
+})
 getAllOrder.addEventListener('click', () => {
     showBlock('.list-wrapper')
+
     getItemsFromDB('/order/all')
 })
 deleteOrder.addEventListener('click', () => {
@@ -417,7 +488,6 @@ createReportEmployee.addEventListener('submit', (e)=> {
         for(let i = 3; i < allRowsFromTable.length; i++) {
             allRowsFromTable[i].remove()
         }
-        console.log(result)
         result.items.forEach(item=> {
             reportEmployee.querySelector('tbody').insertAdjacentHTML('beforeend', `
             <tr>

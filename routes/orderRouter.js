@@ -23,12 +23,8 @@ router.post('/create', (req, res) => {
 router.put('/edit', (req, res) => {
     (async () => {
         try {
-
-                const orders =  await db.query(`SELECT * FROM Заказ WHERE КодЗаказа>0 LIMIT 1`)
-
-
-            console.log(orders.rows)
-            console.log(req.body)
+            await db.query(`UPDATE  Заказ SET КодПокупателя  = '${req.body.buyer}', КодФильма = '${req.body.film}', Дата = '${req.body.date}' WHERE КодЗаказа = '${req.body.id}' `)
+            return res.json({msg: 'Заказ успешно обновлен!', status: 'OK'})
         } catch (e) {
             console.log(e)
             return res.json({msg: 'Произошла ошибка!', status: 'error'})
@@ -39,10 +35,9 @@ router.post('/getOne', (req, res) => {
     (async () => {
         try {
             const order = await db.query(`SELECT * FROM Заказ WHERE КодЗаказа  = '${req.body.id}'`)
-console.log(order.rows)
 
+            return res.json({msg: 'Заказ успешно получен!', status: 'OK', orders: order.rows})
         } catch (e) {
-            console.log(e)
             return res.json({msg: 'Произошла ошибка!', status: 'error'})
         }
     })()
@@ -65,7 +60,8 @@ router.get('/all', (req, res) => {
             Покупатель.Имя as "Имя покупателя", Покупатель.Отчество as "Отчество покупателя",  Заказ.Дата, Сотрудник.Фамилия as "Фамилия сотрудника", 
             Сотрудник.Имя as "Имя сотрудника", Сотрудник.Отчество as "Отчество сотрудника" 
             FROM Покупатель 
-            INNER JOIN(Заказ INNER JOIN Сотрудник ON Заказ.КодСотрудника = Сотрудник.КодСотрудника)  ON Покупатель.КодПокупателя = Заказ.КодПокупателя `)
+            INNER JOIN(Заказ INNER JOIN Сотрудник ON Заказ.КодСотрудника = Сотрудник.КодСотрудника)  ON Покупатель.КодПокупателя = Заказ.КодПокупателя 
+            ORDER BY КодЗаказа`)
             let elements = {}
             orders.rows.forEach((elem, i) => {
                 elem['Дата'] = elem['Дата'].toLocaleDateString()

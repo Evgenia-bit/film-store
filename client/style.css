@@ -161,13 +161,9 @@ form textarea {
 .list-row {
     position: relative;
 }
-.delete {
-    color: red !important;
+.delete:hover {
+    border: 3px solid red;
     cursor: pointer;
-    display: block;
-    position: absolute;
-    right: 3px;
-    top: 0;
 }
 .choose-employee-form {
     height: 30px;
@@ -198,4 +194,12 @@ form textarea {
 }
 .report {
     position: relative;
+}
+.editing:hover {
+    border: solid 3px green;
+    cursor: pointer;
+}
+.manual {
+    color: #000;
+    padding-left: 40px;
 }

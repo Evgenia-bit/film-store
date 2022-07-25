@@ -16,8 +16,8 @@ router.post('/create', (req, res) => {
 router.delete('/delete', (req, res) => {
     (async () => {
         try {
-            const name = req.body[0]
-            await db.query(`DELETE FROM Жанр WHERE Наименование = '${name}'`) 
+            const genreId = req.body[0]
+            await db.query(`DELETE FROM Жанр WHERE КодЖанра = '${genreId}'`)
             return res.json( {msg : 'Жанр успешно удалён!', status: 'OK'})
             
         } catch (e) {
