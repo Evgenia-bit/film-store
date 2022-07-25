@@ -1,17 +1,23 @@
-const express = require('express')
 const path = require('path')
 const fs = require('fs')
+const express = require('express')
+
 const db = require('./db')
-const router = require('./routes/index')
+const router = require('./routes')
+
+
 const app = express()
 
 const PORT = 5000
+
+const startSql = fs.readFileSync('database.sql').toString()
+
+
 app.use(express.json())
+
 app.use(express.static(path.resolve(__dirname, 'client')))
 
 app.use('/', router)
-
-const startSql = fs.readFileSync('database.sql').toString()
 
 
 const start = async () => {

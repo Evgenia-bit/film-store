@@ -1,5 +1,6 @@
-const sequelize = require('db')
 const {DataTypes} = require('sequelize')
+const sequelize = require('./db')
+
 
 const Order = sequelize.define('order', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
@@ -15,7 +16,6 @@ const Film = sequelize.define('film', {
     country: {type: DataTypes.STRING},
     cast: {type: DataTypes.STRING}
 })
-
 
 const Genre = sequelize.define('genre', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
@@ -43,6 +43,7 @@ const Employee = sequelize.define('employee', {
     position: {type: DataTypes.STRING, allowNull: false},
 
 })
+
 Order.hasOne(Film)
 Film.belongsTo(Order)
 

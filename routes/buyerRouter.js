@@ -18,7 +18,9 @@ router.post('/create', async (req, res) => {
 
 router.delete('/delete', async (req, res) => {
     try {
-        await db.query(`DELETE FROM Покупатель WHERE Фамилия = '${req.body[0]}' AND Имя = '${req.body[1]}' AND  Отчество = '${req.body[2]}' AND  СерияПаспорта = '${req.body[3]}' AND НомерПаспорта = '${req.body[4]}'`)
+        const buyerId = req.body[0]
+
+        await db.query(`DELETE FROM Покупатель WHERE КодПокупателя = '${buyerId}'`)
 
         return res.json({msg: 'Покупатель успешно удалён!', status: 'OK'})
     } catch (e) {
@@ -28,29 +30,28 @@ router.delete('/delete', async (req, res) => {
 
 router.get('/all', async (req, res) => {
     try {
-        const films = await db.query(`SELECT КодПокупателя AS "Код покупателя", Фамилия, Имя, Отчество, СерияПаспорта AS "Серия паспорта", НомерПаспорта AS "Номер паспорта", ВремяВыдачиПаспорта AS "Время выдачи паспорта", КемВыданПаспорт AS "Кем выдан паспорт", МестоЖительства AS "Место жительства", НомерТелефона AS "Номер телефона" FROM Покупатель`)
+        const buyers = await db.query(`SELECT КодПокупателя AS "Код покупателя", Фамилия, Имя, Отчество, СерияПаспорта AS "Серия паспорта", НомерПаспорта AS "Номер паспорта", ВремяВыдачиПаспорта AS "Время выдачи паспорта", КемВыданПаспорт AS "Кем выдан паспорт", МестоЖительства AS "Место жительства", НомерТелефона AS "Номер телефона" FROM Покупатель`)
 
-        let elements = {}
         let codes = {}
+        let buyersInitials = ''
         let fullnames = {}
 
-        films.rows.forEach((elem, i) => {
-            codes[i] = elem['Код покупателя']
-            elem['Время выдачи паспорта'] = elem['Время выдачи паспорта'].toLocaleDateString()
-            elements[i] = elem;
-            fullnames[i] = elem['Фамилия'] + ' ' + elem['Имя'][0] + '. ' + elem['Отчество'][0] + '. ';
-        });
+        buyers.rows.forEach((buyer, i) => {
+            codes[i] = buyer['Код покупателя']
+            buyer['Время выдачи паспорта'] = buyer['Время выдачи паспорта'].toLocaleDateString()
+            buyersInitials = buyer['Имя'][0] + '. ' + buyer['Отчество'][0] + '. '
+            fullnames[i] = buyer['Фамилия'] + ' ' + buyersInitials
+        })
 
         return res.json({
             msg: 'Покупатели успешно получены!',
             status: 'OK',
             title: 'Все покупатели',
-            elements,
+            elements: buyers.rows,
             codes,
             fullnames
         })
     } catch (e) {
-        console.log(e)
         return res.json({msg: 'Произошла ошибка!', status: 'error'})
     }
 })
