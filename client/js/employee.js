@@ -1,13 +1,11 @@
-import {getElementsForSelect, request} from "./main.js";
+import {getElementsForSelect, request} from "./main.js"
+
 
 const changeEmployee = document.querySelector('.change-employee')
 const changeEmployeeForm = document.querySelector('.choose-employee-form')
 const selectEmployee = document.querySelector('#employee')
 const currentEmployee = document.querySelector('.current-employee')
 const changeEmployeeSubmit = document.querySelector('.change-employee-submit')
-
-
-
 
 
 changeEmployee.addEventListener('click', ()=> {

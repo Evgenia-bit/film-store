@@ -20,6 +20,10 @@ class ResultBlock {
         this.setColor('black')
         this.setContent('Отправка.....')
     }
+    setDeletingStatus() {
+        this.setColor('black')
+        this.setContent('Удаление.....')
+    }
     setSuccessfulResultStatus(msg) {
         this.setColor('#73F55B')
         this.setContent(msg)

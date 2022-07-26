@@ -12,6 +12,7 @@ const selectEmployeeForReport = document.querySelector('#employee-for-report')
 createReportRevenueBtn.addEventListener('click',()=> {
     showBlock('.report-revenue')
 })
+
 createReportRevenue.addEventListener('submit', (e)=> {
     e.preventDefault()
     const data = {
@@ -43,14 +44,14 @@ createReportRevenue.addEventListener('submit', (e)=> {
             </tr>
         `)
         })
-
-
     })
 })
+
 createReportEmployeeRevenueBtn.addEventListener('click',()=> {
     showBlock('.report-employee')
     getElementsForSelect(selectEmployeeForReport, '/employee/all')
 })
+
 createReportEmployee.addEventListener('submit', (e)=> {
     e.preventDefault();
     const data = {

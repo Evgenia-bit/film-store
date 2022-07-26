@@ -1,9 +1,10 @@
 import {
-    createItemInDB, deteleItemInDB,
+    createItemInDB,
+    prepareItemsForDeletion,
     editItemInDB,
-    getEditings,
+    getReadyToEditElement,
     getElementsForSelect, getItemsFromDB,
-    getItemsFromDBForEdit,
+    prepareItemsForEdit,
     showBlock
 } from "./main.js";
 
@@ -17,14 +18,13 @@ const deleteFilm = document.querySelector('.delete-film__li')
 const selectGenre = document.querySelector('#genre')
 const selectGenreEdit = document.querySelector('#genre-edit')
 
-console.log(createFilm)
-
 
 createFilmBtn.addEventListener('click', () => {
     showBlock('.create-film')
     getElementsForSelect(selectGenre, '/genre/all')
 })
-createFilm.addEventListener('submit', (e) => {
+
+createFilm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const data = {
         genre: createFilm.genre.value,
@@ -36,32 +36,30 @@ createFilm.addEventListener('submit', (e) => {
         description: createFilm.description.value,
         cast: createFilm.cast.value,
     }
-    createItemInDB('/film/create', data)
-   // createFilm.reset()
+    await createItemInDB('/film/create', data)
 })
-editFilmBtn.addEventListener('click', () => {
-    showBlock('.list-wrapper')
-    getItemsFromDBForEdit('/film/all').then(()=> {
-        const editings = document.querySelectorAll('.editing')
-        editings.forEach(item => {
-            item.addEventListener('click', (e)=> {
-                getEditings('.edit-film', editFilm, '/film/getOne', item).then(result=> {
-                    console.log(result)
-                    getElementsForSelect(selectGenreEdit, '/genre/all', result.film[0]["КодЖанра"])
-                    editFilm.name.value = result.film[0]["Наименование"]
-                    editFilm.price.value = result.film[0]["Цена"]
-                    editFilm.duration.value = result.film[0]["Длительность"]
-                    editFilm.country.value = result.film[0]["Страна"]
-                    editFilm.year.value = result.film[0]["Год"]
-                    editFilm.description.value = result.film[0]["Описание"]
-                    editFilm.cast.value = result.film[0]["АктёрскийСостав"]
-                })
 
+editFilmBtn.addEventListener('click', async () => {
+    showBlock('.list-wrapper')
+    await prepareItemsForEdit('/film/all')
+    const readyToEditElements = document.querySelectorAll('.editing')
+    readyToEditElements.forEach(element => {
+        element.addEventListener('click', (e) => {
+            getReadyToEditElement('.edit-film', editFilm, '/film/getOne', element).then(result => {
+                getElementsForSelect(selectGenreEdit, '/genre/all', result.film[0]["КодЖанра"])
+                editFilm.name.value = result.film[0]["Наименование"]
+                editFilm.price.value = result.film[0]["Цена"]
+                editFilm.duration.value = result.film[0]["Длительность"]
+                editFilm.country.value = result.film[0]["Страна"]
+                editFilm.year.value = result.film[0]["Год"]
+                editFilm.description.value = result.film[0]["Описание"]
+                editFilm.cast.value = result.film[0]["АктёрскийСостав"]
             })
         })
     })
 })
-editFilm.addEventListener('submit', (e)=> {
+
+editFilm.addEventListener('submit', async (e) => {
     e.preventDefault()
     const data = {
         id: editFilm.getAttribute('data-itemId'),
@@ -74,14 +72,15 @@ editFilm.addEventListener('submit', (e)=> {
         description: editFilm.description.value,
         cast: editFilm.cast.value,
     }
-    editItemInDB('/film/edit', data)
+    await editItemInDB('/film/edit', data)
+})
 
-})
-getAllFilm.addEventListener('click', () => {
+getAllFilm.addEventListener('click', async () => {
     showBlock('.list-wrapper')
-    getItemsFromDB('/film/all')
+    await getItemsFromDB('/film/all')
 })
+
 deleteFilm.addEventListener('click', () => {
     showBlock('.list-wrapper')
-    deteleItemInDB('/film/all', '/film/delete')
+    prepareItemsForDeletion('/film/all', '/film/delete')
 })

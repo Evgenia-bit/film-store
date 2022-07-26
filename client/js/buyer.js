@@ -1,4 +1,4 @@
-import {createItemInDB, deteleItemInDB, getItemsFromDB, showBlock} from "./main.js";
+import {createItemInDB, prepareItemsForDeletion, getItemsFromDB, showBlock} from "./main.js";
 
 const createBuyer = document.querySelector('#buyer-form')
 const createBuyerBtn = document.querySelector('.create-buyer__li')
@@ -8,7 +8,8 @@ const deleteBuyer = document.querySelector('.delete-buyer__li')
 createBuyerBtn.addEventListener('click', () => {
     showBlock('.create-buyer')
 })
-createBuyer.addEventListener('submit', (e) => {
+
+createBuyer.addEventListener('submit', async (e) => {
     e.preventDefault();
     const data = {
         surname: createBuyer.surname.value,
@@ -21,14 +22,16 @@ createBuyer.addEventListener('submit', (e) => {
         place: createBuyer.place.value,
         phone: createBuyer.phone.value
     }
-    createItemInDB('/buyer/create', data)
+    await createItemInDB('/buyer/create', data)
     createBuyer.reset()
 })
-getAllBuyer.addEventListener('click', () => {
+
+getAllBuyer.addEventListener('click', async () => {
     showBlock('.list-wrapper')
-    getItemsFromDB('/buyer/all')
+    await getItemsFromDB('/buyer/all')
 })
-deleteBuyer.addEventListener('click', () => {
+
+deleteBuyer.addEventListener('click', async () => {
     showBlock('.list-wrapper')
-    deteleItemInDB('/buyer/all', '/buyer/delete')
+    await prepareItemsForDeletion('/buyer/all', '/buyer/delete')
 })
