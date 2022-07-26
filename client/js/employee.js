@@ -1,4 +1,4 @@
-import {getElementsForSelect, request} from "./main";
+import {getElementsForSelect, request} from "./main.js";
 
 const changeEmployee = document.querySelector('.change-employee')
 const changeEmployeeForm = document.querySelector('.choose-employee-form')
