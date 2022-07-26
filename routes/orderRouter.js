@@ -1,5 +1,6 @@
 const Router = require('express')
 const db = require('../db')
+const DataTransformer = require("../utils/DataTransformer.js")
 
 const router = new Router
 
@@ -65,9 +66,7 @@ router.get('/all', async (req, res) => {
             INNER JOIN(Заказ INNER JOIN Сотрудник ON Заказ.КодСотрудника = Сотрудник.КодСотрудника)  ON Покупатель.КодПокупателя = Заказ.КодПокупателя 
             ORDER BY КодЗаказа`)
 
-        orders.rows.forEach((order, i) => {
-            order['Дата'] = order['Дата'].toLocaleDateString()
-        })
+        DataTransformer.toLocaleDateString(orders.rows, 'Дата')
 
         return res.json({msg: 'Заказы успешно получены!', status: 'OK', title: 'Все Заказы', elements: orders.rows})
     } catch (e) {

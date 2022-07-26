@@ -1,5 +1,6 @@
 const Router = require('express')
 const db = require('../db')
+const DataTransformer = require('../utils/DataTransformer.js')
 
 const router = new Router
 
@@ -29,9 +30,7 @@ router.post('/employee', async (req, res) => {
             ORDER BY Заказ.Дата DESC;
             `)
 
-        employeeActivityReport.rows.forEach(reportLine => {
-            reportLine['Дата'] = reportLine['Дата'].toLocaleDateString()
-        })
+        DataTransformer.toLocaleDateString(employeeActivityReport.rows)
 
         return res.json({msg: 'Отчёт сгенерирован!', status: 'OK', items: employeeActivityReport.rows})
     } catch (e) {

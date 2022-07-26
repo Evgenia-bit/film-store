@@ -1,5 +1,6 @@
 const Router = require('express')
 const db = require('../db')
+const DataTransformer = require("../utils/DataTransformer.js")
 
 const router = new Router
 
@@ -33,14 +34,17 @@ router.get('/all', async (req, res) => {
         const buyers = await db.query(`SELECT КодПокупателя AS "Код покупателя", Фамилия, Имя, Отчество, СерияПаспорта AS "Серия паспорта", НомерПаспорта AS "Номер паспорта", ВремяВыдачиПаспорта AS "Время выдачи паспорта", КемВыданПаспорт AS "Кем выдан паспорт", МестоЖительства AS "Место жительства", НомерТелефона AS "Номер телефона" FROM Покупатель`)
 
         let codes = {}
-        let buyersInitials = ''
         let fullnames = {}
+
+        DataTransformer.toLocaleDateString(buyers.rows, 'Время выдачи паспорта')
 
         buyers.rows.forEach((buyer, i) => {
             codes[i] = buyer['Код покупателя']
-            buyer['Время выдачи паспорта'] = buyer['Время выдачи паспорта'].toLocaleDateString()
-            buyersInitials = buyer['Имя'][0] + '. ' + buyer['Отчество'][0] + '. '
-            fullnames[i] = buyer['Фамилия'] + ' ' + buyersInitials
+            fullnames[i] = DataTransformer.getFullnames({
+                lastName:  buyer['Фамилия'],
+                firstName:  buyer['Имя'],
+                patronymic: buyer['Отчество']
+            })
         })
 
         return res.json({

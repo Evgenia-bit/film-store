@@ -1,5 +1,6 @@
 const Router = require('express')
 const db = require('../db')
+const DataTransformer = require("../utils/DataTransformer.js")
 
 const router = new Router
 
@@ -9,13 +10,15 @@ router.get('/all', async (req, res) => {
 
         let elements = {}
         let codes = {}
-        let employeesInitials = ''
 
         employees.rows.forEach((employee, i) => {
             codes[i] = employee['КодСотрудника']
-            employeesInitials = employee['Имя'][0] + '. ' + employee['Отчество'][0] + '. '
-            elements[i] = employee['Должность'] + ' ' + employee['Фамилия'] + ' ' + employeesInitials;
-        });
+            elements[i] = employee['Должность'] + ' ' + DataTransformer.getFullnames({
+                lastName:  employee['Фамилия'],
+                firstName:  employee['Имя'],
+                patronymic: employee['Отчество']
+            })
+        })
 
         return res.json({msg: 'Сотрудники успешно получены!', status: 'OK', title: 'Все сотрудники', elements, codes})
     } catch (e) {
@@ -27,9 +30,13 @@ router.post('/all:id', async (req, res) => {
     try {
         const employees = await db.query(`SELECT Фамилия, Имя, Отчество, Должность FROM Сотрудник WHERE КодСотрудника = '${req.params.id}'`)
 
-        let employeesInitials = employees.rows[0]['Имя'][0] + '. ' + employees.rows[0]['Отчество'][0] + '. '
+        const fullName = DataTransformer.getFullnames({
+            lastName:  employees.rows[0]['Фамилия'],
+            firstName:  employees.rows[0]['Имя'],
+            patronymic: employees.rows[0]['Отчество']
+        })
 
-        const currentEmployee = employees.rows[0]['Должность'] + ' ' + employees.rows[0]['Фамилия'] + ' ' + employeesInitials
+        const currentEmployee = employees.rows[0]['Должность'] + ' ' + fullName
 
         return res.json({msg: 'Сотрудник успешно получен!', status: 'OK', currentEmployee})
     } catch (e) {
