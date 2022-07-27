@@ -9,6 +9,7 @@
   "author": "Mochalina Evgenia",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.0.1",
     "express": "^4.17.1",
     "nodemon": "^2.0.15",
     "pg": "^8.7.1",
