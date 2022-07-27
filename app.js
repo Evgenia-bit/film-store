@@ -2,13 +2,16 @@ const path = require('path')
 const fs = require('fs')
 const express = require('express')
 
-const db = require('./db')
+
+require('dotenv').config()
+
+
 const router = require('./routes')
 
 
 const app = express()
 
-const PORT = 5000
+const PORT = process.env.PORT | 5000
 
 const startSql = fs.readFileSync('database.sql').toString()
 
