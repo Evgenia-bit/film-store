@@ -81,7 +81,7 @@ function getItemsFromDB(url) {
 
 async function createItemInDB(url, data) {
     resultBlock.setSendingStatus()
-    await updateItemInDB({url, method: 'POST', data})
+    return await updateItemInDB({url, method: 'POST', data})
 }
 
 async function editItemInDB(url, data) {

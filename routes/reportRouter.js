@@ -30,7 +30,7 @@ router.post('/employee', async (req, res) => {
             ORDER BY Заказ.Дата DESC;
             `)
 
-        DataTransformer.toLocaleDateString(employeeActivityReport.rows)
+        DataTransformer.toLocaleDateString(employeeActivityReport.rows, 'Дата')
 
         return res.json({msg: 'Отчёт сгенерирован!', status: 'OK', items: employeeActivityReport.rows})
     } catch (e) {
