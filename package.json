@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
+    "prefill": "node ./db/db-init.js",
     "start": "node app.js",
     "dev": "nodemon app.js"
   },
