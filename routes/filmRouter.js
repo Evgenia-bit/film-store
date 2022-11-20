@@ -29,30 +29,4 @@ router.delete('/delete000', async (req, res) => {
 })
 
 
-router.get('/all', async (req, res) => {
-    try {
-        const films = await db.query(`SELECT КодФильма AS "Код фильма", Фильм.Наименование AS "Название фильма", Жанр.Наименование AS Жанр, Фильм.Цена, Фильм.Длительность, Фильм.Страна, Фильм.Год, Фильм.Описание, Фильм.АктёрскийСостав AS "Актёрский состав" FROM Фильм 
-                                    LEFT JOIN Жанр ON Жанр.КодЖанра = Фильм.КодЖанра ORDER BY КодФильма`)
-
-        let codes = {}
-        let fullnames = {}
-
-        films.rows.forEach((film, i) => {
-            codes[i] = film['Код фильма']
-            fullnames[i] = film["Название фильма"]
-        })
-
-        return res.json({
-            msg: 'Фильмы успешно получены!',
-            status: 'OK',
-            title: 'Все Фильмы',
-            elements: films.rows,
-            codes,
-            fullnames
-        })
-    } catch (e) {
-        return res.json({msg: 'Произошла ошибка!', status: 'error'})
-    }
-})
-
 module.exports = router
