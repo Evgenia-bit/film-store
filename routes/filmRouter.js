@@ -16,34 +16,13 @@ router.post('/create', async (req, res) => {
     }
 })
 
-router.delete('/delete', async (req, res) => {
+router.delete('/delete000', async (req, res) => {
     try {
         const filmId = req.body[0]
 
         await db.query(`DELETE FROM Фильм WHERE КодФильма = '${filmId}'`)
 
         return res.json({msg: 'Фильм успешно удалён!', status: 'OK'})
-    } catch (e) {
-        return res.json({msg: 'Произошла ошибка!', status: 'error'})
-    }
-})
-
-router.put('/edit', async (req, res) => {
-    try {
-        const {id, genre, name, price, duration, year, country, description, cast} = req.body
-
-        await db.query(`UPDATE  Фильм SET 
-            КодЖанра  = '${genre}', 
-            Наименование = '${name}', 
-            Цена = '${price}',
-            Длительность = '${duration}',         
-            Страна = '${country}',
-            Год = '${year}',
-            Описание = '${description}',
-            АктёрскийСостав = '${cast}'
-            WHERE КодФильма = '${id}'`)
-
-        return res.json({msg: 'Фильм успешно обновлен!', status: 'OK'})
     } catch (e) {
         return res.json({msg: 'Произошла ошибка!', status: 'error'})
     }
