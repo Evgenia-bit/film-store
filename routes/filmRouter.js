@@ -45,7 +45,6 @@ router.put('/edit', async (req, res) => {
 
         return res.json({msg: 'Фильм успешно обновлен!', status: 'OK'})
     } catch (e) {
-        return res.json({msg: 'Произошла ошибка!', status: 'error'})
     }
 })
 
