@@ -28,17 +28,6 @@ router.delete('/delete000', async (req, res) => {
     }
 })
 
-router.post('/getOne', async (req, res) => {
-    try {
-        const filmId = req.body.id
-
-        const film = await db.query(`SELECT * FROM Фильм WHERE КодФильма  = '${filmId}'`)
-
-        return res.json({msg: 'Фильм успешно получен!', status: 'OK', film: film.rows})
-    } catch (e) {
-        return res.json({msg: 'Произошла ошибка!', status: 'error'})
-    }
-})
 
 router.get('/all', async (req, res) => {
     try {
